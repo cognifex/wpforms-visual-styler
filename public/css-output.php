@@ -1,11 +1,13 @@
 <?php
+if (!defined('ABSPATH')) exit;
+if (!function_exists('wpforms')) return;
 
 $forms = wpforms()->form->get();
+if (empty($forms)) return;
 
 foreach ($forms as $form) {
-
     $opt = get_option("wpvs_style_".$form->ID);
-    if (!$opt) continue;
+    if (!is_array($opt) || empty($opt)) continue;
 
     echo "<style>";
 
