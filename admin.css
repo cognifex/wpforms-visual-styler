@@ -1,0 +1,27 @@
+#wpvs-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+#wpvs-left {
+    width: 35%;
+}
+
+#wpvs-right {
+    width: 65%;
+}
+
+#wpvs-iframe {
+    width: 100%;
+    height: 1200px;
+    border: 1px solid #ccc;
+}
+
+#wpvs-form-list li {
+    cursor: pointer;
+    padding: 6px;
+}
+
+#wpvs-form-list li:hover {
+    background: #eee;
+}
