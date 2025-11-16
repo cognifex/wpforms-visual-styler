@@ -9,6 +9,10 @@ if (!defined('ABSPATH')) exit;
 define('WPVS_PATH', plugin_dir_path(__FILE__));
 define('WPVS_URL',  plugin_dir_url(__FILE__));
 
+function wpvs_register_preview_rule() {
+    add_rewrite_rule('wpforms-style-preview/([^/]+)/?', 'index.php?wpforms_style_preview=$matches[1]', 'top');
+}
+
 class WPVS {
 
     function __construct() {
@@ -58,12 +62,12 @@ class WPVS {
         wp_enqueue_script("wpvs-react", WPVS_URL."admin/react-app.js", ['wp-element', 'wp-block-editor', 'wp-components'], null, true);
         wp_localize_script("wpvs-react", "WPVS", [
             "ajax" => admin_url("admin-ajax.php"),
-            "previewBase" => site_url("/wpforms-style-preview/")
+            "previewBase" => add_query_arg('wpforms_style_preview', '', home_url('/'))
         ]);
     }
 
     function preview_endpoint(){
-        add_rewrite_rule('wpforms-style-preview/([^/]+)/?', 'index.php?wpforms_style_preview=$matches[1]', 'top');
+        wpvs_register_preview_rule();
         add_filter('query_vars', fn($v)=>array_merge($v,['wpforms_style_preview']));
     }
 
@@ -78,5 +82,12 @@ class WPVS {
         include WPVS_PATH . "public/css-output.php";
     }
 }
+
+register_activation_hook(__FILE__, function(){
+    wpvs_register_preview_rule();
+    flush_rewrite_rules();
+});
+
+register_deactivation_hook(__FILE__, 'flush_rewrite_rules');
 
 new WPVS();
