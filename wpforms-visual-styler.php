@@ -55,7 +55,7 @@ class WPVS {
         wp_enqueue_script("blocksy-options", plugins_url("blocksy-companion/static/bundle/options.min.js"), [], null, true);
 
         // React App
-        wp_enqueue_script("wpvs-react", WPVS_URL."admin/react-app.js", ['wp-element'], null, true);
+        wp_enqueue_script("wpvs-react", WPVS_URL."admin/react-app.js", ['wp-element', 'wp-block-editor', 'wp-components'], null, true);
         wp_localize_script("wpvs-react", "WPVS", [
             "ajax" => admin_url("admin-ajax.php"),
             "previewBase" => site_url("/wpforms-style-preview/")
