@@ -1,5 +1,3 @@
-# WPForms Visual Styler
-
 Ein WordPress-Plugin, mit dem du WPForms-Formulare visuell pro Formular stylen kannst – inklusive Live-Vorschau im Adminbereich.
 
 ## Features
